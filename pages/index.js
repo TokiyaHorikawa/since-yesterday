@@ -28,7 +28,7 @@ export default function Home() {
 
         <main className={styles.main}>
           <h1 className={styles.title}>
-            Welcome to <a href="https://nextjs.org">Next.js!</a>
+           今日は『<span>昨日より</span>』
           </h1>
 
             <ArticleCards></ArticleCards>
