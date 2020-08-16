@@ -1,19 +1,16 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-
 import ArticleCards from '../components/ArticleCards'
-
-import ApolloClient from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
+import {
+  ApolloClient,
+  InMemoryCache,
+} from "@apollo/client";
 
  const client = new ApolloClient({
-     link: new HttpLink({
-       uri: "http://localhost:8080/v1/graphql",
-     }),
-     cache: new InMemoryCache(),
-   });
+   uri: "http://localhost:8080/v1/graphql",
+   cache: new InMemoryCache(),
+ });
 
 
 
