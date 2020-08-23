@@ -14,7 +14,6 @@ import {
  });
 
 export default function Home() {
-  // const classes = useStyles()
   return (
     <ApolloProvider client={client}>
       <div className={styles.container}>
