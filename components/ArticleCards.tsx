@@ -46,7 +46,7 @@ const ArticleCards = () => {
   return (
     <div className={articleStyle.article}>
       {data.articles.map((article: ArticleType) => (
-        <Article {...article}></Article>
+        <Article {...article} key={article.id}></Article>
       ))}
     </div>
   );
