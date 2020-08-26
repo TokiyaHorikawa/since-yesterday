@@ -1,12 +1,14 @@
+import React, { useRef, useState } from "react";
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import ArticleCards from '../components/ArticleCards'
-import AddArticleFab from '../components/AddArticleFab'
 import { ApolloProvider } from '@apollo/react-hooks';
 import {
   ApolloClient,
   InMemoryCache,
 } from "@apollo/client";
+import ArticleCards from '../components/ArticleCards'
+import AddArticleFab from '../components/AddArticleFab'
+import FormDialog from '../components/FormDialog'
 
  const client = new ApolloClient({
    uri: "http://localhost:8080/v1/graphql",
@@ -14,6 +16,10 @@ import {
  });
 
 export default function Home() {
+  const [open, setOpen] = useState(false)
+  const changeShowDialogState = () => {
+    setOpen(!open)
+  }
   return (
     <ApolloProvider client={client}>
       <div className={styles.container}>
@@ -27,7 +33,8 @@ export default function Home() {
             今日は『<span>昨日より</span>』
           </h1>
           <ArticleCards></ArticleCards>
-          <AddArticleFab></AddArticleFab>
+          <AddArticleFab openHandler={changeShowDialogState}></AddArticleFab>
+          <FormDialog open={open} closeHandler={changeShowDialogState}></FormDialog>
         </main>
       </div>
     </ApolloProvider>
