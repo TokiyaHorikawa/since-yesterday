@@ -8,3 +8,9 @@ export const ARTICLES_QUERY = gql`
     }
   }
 `;
+
+export const ADD_ARTICLES = gql`
+  mutation AddArticles($text: String = "") {
+    insert_articles(objects: { text: $text })
+  }
+`;
