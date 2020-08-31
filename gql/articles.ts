@@ -10,7 +10,13 @@ export const ARTICLES_QUERY = gql`
 `;
 
 export const ADD_ARTICLES = gql`
-  mutation AddArticles($text: String = "") {
-    insert_articles(objects: { text: $text })
+  mutation AddArticles($text: String = "", $date: date = "") {
+    insert_articles(objects: { text: $text, date: $date }) {
+      returning {
+        id
+        text
+        date
+      }
+    }
   }
 `;

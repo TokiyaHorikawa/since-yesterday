@@ -8,6 +8,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_ARTICLES } from "../gql/articles";
+import dayjs from "dayjs";
 
 interface PropsType {
   open: boolean;
@@ -17,13 +18,20 @@ interface PropsType {
 const FormDialog = ({ open, closeHandler }: PropsType) => {
   const [article, setArticle] = useState({
     text: '',
-    date: new Date
+    date: dayjs().format('YYYY-MM-DD')
   })
+
   const [AddArticles] = useMutation(ADD_ARTICLES);
 
   const submit = async () => {
-    await AddArticles();
-    closeHandler;
+    await AddArticles({ variables: article })
+      .then((res) => {
+        console.log(res);
+        closeHandler();
+      })
+      .catch((err) => {
+        alert(err)
+      });
   };
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,11 +55,8 @@ const FormDialog = ({ open, closeHandler }: PropsType) => {
           multiline
           rows={4}
           fullWidth
-          placeholder="今日は昨日より何ができるようになりましたか？"
+          placeholder="今日は昨日より、何ができるようになりましたか？"
         />
-        {/* this is dev code */}
-        <p>{article.text}</p>
-        <p>{article.date+''}</p>
       </DialogContent>
       <DialogActions>
         <Button onClick={closeHandler} color="primary">
