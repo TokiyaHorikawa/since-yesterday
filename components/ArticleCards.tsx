@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks'
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -7,14 +6,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import articleStyle from '../styles/ArticleCards.module.css';
 
-const OUR_FIRST_QUERY = gql`
- query {
-   articles {
-     id
-     text
-   }
- }
-`;
+import { ARTICLES_QUERY } from '../gql/articles';
 
 interface ArticleType {
   id: string;
@@ -37,7 +29,7 @@ const Article = (article: ArticleType) => {
 }
 
 const ArticleCards = () => {
-  const { loading, error, data } = useQuery(OUR_FIRST_QUERY)
+  const { loading, error, data } = useQuery(ARTICLES_QUERY);
   // ローディング中の表示
   if (loading) return <p>loading</p>
   // エラー時の表示
