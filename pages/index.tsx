@@ -6,13 +6,23 @@ import {
   ApolloClient,
   InMemoryCache,
 } from "@apollo/client";
+import { WebSocketLink } from "@apollo/client/link/ws";
 import ArticleCards from '../components/ArticleCards'
 import AddArticleFab from '../components/AddArticleFab'
 import FormDialog from '../components/FormDialog'
 
  const client = new ApolloClient({
-   uri: "http://localhost:8080/v1/graphql",
-   cache: new InMemoryCache(),
+  link: new WebSocketLink({
+    uri: 'ws://localhost:8080/v1/graphql',
+    options: {
+      reconnect: true,
+       connectionParams: {
+          headers: {
+          }
+       }
+    }
+  }),
+  cache: new InMemoryCache(),
  });
 
 export default function Home() {

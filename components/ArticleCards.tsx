@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks'
+import { useSubscription } from '@apollo/react-hooks'
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import articleStyle from '../styles/ArticleCards.module.css';
 
-import { ARTICLES_QUERY } from '../gql/articles';
+import { ARTICLES_SUBSCRIPTIONS } from '../gql/articles';
 
 interface ArticleType {
   id: string;
@@ -29,7 +29,9 @@ const Article = (article: ArticleType) => {
 }
 
 const ArticleCards = () => {
-  const { loading, error, data } = useQuery(ARTICLES_QUERY);
+
+  const { loading, error, data} = useSubscription(ARTICLES_SUBSCRIPTIONS);
+  console.log(data)
   // ローディング中の表示
   if (loading) return <p>loading</p>
   // エラー時の表示
