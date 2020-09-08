@@ -11,19 +11,21 @@ import ArticleCards from '../components/ArticleCards'
 import AddArticleFab from '../components/AddArticleFab'
 import FormDialog from '../components/FormDialog'
 
- const client = new ApolloClient({
-  link: new WebSocketLink({
-    uri: 'ws://localhost:8080/v1/graphql',
+const wsLink = process.browser ? new WebSocketLink({
+    uri: "ws://localhost:8080/v1/graphql",
     options: {
       reconnect: true,
-       connectionParams: {
-          headers: {
-          }
-       }
-    }
-  }),
+      connectionParams: {
+        headers: {
+        },
+      },
+    },
+  }) : undefined;
+
+const client = new ApolloClient({
+  link: wsLink,
   cache: new InMemoryCache(),
- });
+});
 
 export default function Home() {
   const [open, setOpen] = useState(false)
